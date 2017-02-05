@@ -1,4 +1,5 @@
 /home/rvv/Source/Identity/Identity/obj/x86/Debug/.NETFramework,Version=v4.5.1.AssemblyAttribute.cs
+/home/rvv/Source/Identity/Identity/bin/Debug/WebService.exe.config
 /home/rvv/Source/Identity/Identity/bin/Debug/WebService.exe.mdb
 /home/rvv/Source/Identity/Identity/bin/Debug/WebService.exe
 /home/rvv/Source/Identity/Identity/obj/x86/Debug/WebService.exe
@@ -17,6 +18,7 @@
 /home/rvv/Source/Identity/Identity/bin/Debug/Microsoft.Owin.Security.dll
 /home/rvv/Source/Identity/Identity/bin/Debug/Microsoft.Owin.Security.OAuth.dll
 /home/rvv/Source/Identity/Identity/bin/Debug/Microsoft.AspNet.Identity.Core.dll
-/home/rvv/Source/Identity/Identity/bin/Debug/Microsoft.Owin.Security.Cookies.dll
 /home/rvv/Source/Identity/Identity/bin/Debug/Microsoft.AspNet.Identity.Owin.dll
 /home/rvv/Source/Identity/Identity/bin/Debug/Owin.Security.AesDataProtectorProvider.dll
+/home/rvv/Source/Identity/Identity/bin/Debug/Microsoft.Owin.Security.Cookies.dll
+/home/rvv/Source/Identity/Identity/bin/Debug/Swashbuckle.Core.dll

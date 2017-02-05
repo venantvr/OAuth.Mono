@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity;
 using System.Web.Http;
 using Microsoft.Owin.Infrastructure;
 using Newtonsoft.Json;
+using Swashbuckle.Application;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace OAuth20
@@ -38,6 +39,10 @@ namespace OAuth20
                 defaults: new { id = RouteParameter.Optional } 
             );
 
+            config
+                .EnableSwagger(c => c.SingleApiVersion("v1", "Identity Server API"))
+                .EnableSwaggerUi();
+            
             // Web API configuration and services
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
