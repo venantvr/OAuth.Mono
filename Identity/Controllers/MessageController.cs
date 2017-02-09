@@ -14,7 +14,7 @@ using Microsoft.Owin.Security.OAuth;
 namespace WebService
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [Authorize]
+    [Authorize(Roles = "admins")]
     public class MessageController : ApiController
     {
         // GET api/values
