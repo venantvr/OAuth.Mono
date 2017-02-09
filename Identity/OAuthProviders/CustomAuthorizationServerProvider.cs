@@ -1,28 +1,28 @@
-﻿using System;
-using Microsoft.Owin.Security.OAuth;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using Identity.Business;
+using Identity.IdentityProviders;
 using Microsoft.Owin.Security;
-using System.Web;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.OAuth;
 
-namespace Identity
+namespace Identity.OAuthProviders
 {
     public class CustomAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         public IdentityUser Identity { get; set; }
 
+#pragma warning disable 1998
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+#pragma warning restore 1998
         {
-            ClaimsIdentity oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
+            var oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
 
             var properties = new AuthenticationProperties(new Dictionary<string, string>
-                {
-                    { "dm:appid", @"user.Id.ToString()" },
-                    { "dm:apikey", @"Convert.ToBase64String(secretKeyBytes)" }
-                });
+                                                          {
+                                                              { "dm:appid", @"user.Id.ToString()" },
+                                                              { "dm:apikey", @"Convert.ToBase64String(secretKeyBytes)" }
+                                                          });
 
             foreach (var role in Identity.Roles)
             {
@@ -41,18 +41,23 @@ namespace Identity
 
             if (context.TryGetBasicCredentials(out clientId, out clientSecret))
             {
-                using (var repository = context.OwinContext.Get<IUserRepository>("AspNet.Identity.Owin:" + (typeof(IUserRepository)).AssemblyQualifiedName.ToString()))
+                var assemblyQualifiedName = typeof (IUserRepository).AssemblyQualifiedName;
+
+                if (assemblyQualifiedName != null)
                 {
-                    IdentityUser user = await repository.FindUser(clientId, clientSecret);
-
-                    if (user == null)
+                    using (var repository = context.OwinContext.Get<IUserRepository>($"AspNet.Identity.Owin:{assemblyQualifiedName}"))
                     {
-                        context.SetError("invalid_grant", "The user name or password is incorrect");
+                        var user = await repository.FindUser(clientId, clientSecret);
 
-                        return;
+                        if (user == null)
+                        {
+                            context.SetError("invalid_grant", "The user name or password is incorrect");
+
+                            return;
+                        }
+
+                        Identity = user;
                     }
-
-                    Identity = user;
                 }
             }
 
@@ -60,4 +65,3 @@ namespace Identity
         }
     }
 }
-

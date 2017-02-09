@@ -1,0 +1,2 @@
+C:\Users\Rénald\Source\Repos\OAuth.Mono\Identity\bin\Debug\WebService.exe.config
+C:\Users\Rénald\Source\Repos\OAuth.Mono\Identity\obj\x86\Debug\WebService.exe

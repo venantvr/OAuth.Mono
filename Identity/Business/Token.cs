@@ -1,21 +1,19 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace Identity
+namespace Identity.Business
 {
     public class Token
     {
-        [JsonProperty("access_token")]  
+        [JsonProperty("access_token")]
         public string AccessToken { get; set; }
 
-        [JsonProperty("token_type")]  
+        [JsonProperty("token_type")]
         public string TokenType { get; set; }
 
-        [JsonProperty("expires_in")]  
+        [JsonProperty("expires_in")]
         public int ExpiresIn { get; set; }
 
-        [JsonProperty("refresh_token")]  
+        [JsonProperty("refresh_token")]
         public string RefreshToken { get; set; }
     }
 }
-

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Identity
+namespace Identity.Logging
 {
     public class ApiLogEntry
     {
@@ -42,4 +42,3 @@ namespace Identity
         // The response timestamp.
     }
 }
-

@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Identity.Business;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Identity
+namespace Identity.IdentityProviders
 {
     public class MongoRepository : IDisposable
     {
-        private MongoCollection _collection;
+        private readonly MongoCollection _collection;
 
         public MongoRepository()
         {
@@ -20,32 +21,30 @@ namespace Identity
             _collection = database.GetCollection<IdentityStorage>("bar");
         }
 
+        public void Dispose()
+        {
+        }
+
+#pragma warning disable 1998
         public async Task<IdentityUser> FindUser(string userName, string password)
+#pragma warning restore 1998
         {
             // _collection.Insert(new IdentityUser());
 
             var query = new QueryBuilder<IdentityUser>();
-            var queryAttributes = new List<IMongoQuery>();
+            var queryAttributes = new List<IMongoQuery> { Query.EQ("UserName", userName), Query.EQ("Password", password) };
 
-            queryAttributes.Add(Query.EQ("UserName", userName));
-            queryAttributes.Add(Query.EQ("Password", password));
-
-            IMongoQuery mongoQuery = query.And(queryAttributes);
+            var mongoQuery = query.And(queryAttributes);
 
             var list = _collection.FindAs<IdentityUser>(mongoQuery);
             var found = list.FirstOrDefault();
 
             if (found != null)
             {
-                return new IdentityUser(){ UserName = found.UserName, Roles = found.Roles };                
+                return new IdentityUser { UserName = found.UserName, Roles = found.Roles };
             }
 
             return default(IdentityUser);
         }
-
-        public void Dispose()
-        {
-        }
     }
 }
-

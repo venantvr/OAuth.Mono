@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -33,10 +33,10 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="IdentityStorage.cs" />
-    <Compile Include="IdentityUser.cs" />
+    <Compile Include="Business\Message.cs" />
+    <Compile Include="Business\Token.cs" />
+    <Compile Include="Business\IdentityStorage.cs" />
+    <Compile Include="Business\IdentityUser.cs" />
     <Compile Include="OAuthProviders\CustomAuthorizationServerProvider.cs" />
     <Compile Include="IdentityProviders\InMemoryRepository.cs" />
     <Compile Include="IdentityProviders\MongoRepository.cs" />
@@ -118,11 +118,5 @@
     <None Include="Web\main.html" />
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Web\" />
-    <Folder Include="OAuthProviders\" />
-    <Folder Include="IdentityProviders\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Logging\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
