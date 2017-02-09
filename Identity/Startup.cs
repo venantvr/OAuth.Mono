@@ -15,6 +15,14 @@ using System.Web.Http;
 using Microsoft.Owin.Infrastructure;
 using Newtonsoft.Json;
 using Swashbuckle.Application;
+using Logging;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
+using Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace OAuth20
@@ -42,7 +50,11 @@ namespace OAuth20
             config
                 .EnableSwagger(c => c.SingleApiVersion("v1", "Identity Server API"))
                 .EnableSwaggerUi();
-            
+
+            config.MessageHandlers.Add(new ApiLogHandler());
+
+            app.CreatePerOwinContext<IUserRepository>(() => { return new InMemoryRepository() as IUserRepository; });
+
             // Web API configuration and services
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
@@ -53,21 +65,7 @@ namespace OAuth20
             OAuthOptions = new OAuthAuthorizationServerOptions()
             {
                 TokenEndpointPath = new PathString("/token"),
-                Provider = new OAuthAuthorizationServerProvider()
-                {
-                    OnValidateClientAuthentication = async (context) =>
-                    {
-                        context.Validated();
-                    },
-                    OnGrantResourceOwnerCredentials = async (context) =>
-                    {
-                        if (context.UserName == UserName && context.Password == Password)
-                        {
-                            ClaimsIdentity oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
-                            context.Validated(oAuthIdentity);
-                        }
-                    }
-                },
+                Provider = new CustomAuthorizationServerProvider(),
                 AllowInsecureHttp = true,
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1)
             };
@@ -76,23 +74,6 @@ namespace OAuth20
             app.UseOAuthAuthorizationServer(OAuthOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());  
             app.UseWebApi(config); 
-
-            // app.UseOAuthBearerTokens(OAuthOptions);
         }
-    }
-
-    public class Token
-    {
-        [JsonProperty("access_token")]  
-        public string AccessToken { get; set; }
-
-        [JsonProperty("token_type")]  
-        public string TokenType { get; set; }
-
-        [JsonProperty("expires_in")]  
-        public int ExpiresIn { get; set; }
-
-        [JsonProperty("refresh_token")]  
-        public string RefreshToken { get; set; }
     }
 }

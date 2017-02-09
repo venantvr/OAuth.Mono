@@ -22,3 +22,5 @@
 /home/rvv/Source/Identity/Identity/bin/Debug/Owin.Security.AesDataProtectorProvider.dll
 /home/rvv/Source/Identity/Identity/bin/Debug/Microsoft.Owin.Security.Cookies.dll
 /home/rvv/Source/Identity/Identity/bin/Debug/Swashbuckle.Core.dll
+/home/rvv/Source/Identity/Identity/bin/Debug/MongoDB.Bson.dll
+/home/rvv/Source/Identity/Identity/bin/Debug/MongoDB.Driver.dll

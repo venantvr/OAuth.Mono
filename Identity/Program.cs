@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text;
 using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
+using Identity;
 
 namespace WebService
 {

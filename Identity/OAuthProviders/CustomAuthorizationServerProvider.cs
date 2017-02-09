@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.Owin.Security;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace Identity
 {
@@ -15,12 +18,13 @@ namespace Identity
         {
             ClaimsIdentity oAuthIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
 
-            var properties = new AuthenticationProperties(new Dictionary<string, string> {
-                { "dm:appid", @"user.Id.ToString()" },
-                { "dm:apikey", @"Convert.ToBase64String(secretKeyBytes)" }
-            });
+            var properties = new AuthenticationProperties(new Dictionary<string, string>
+                {
+                    { "dm:appid", @"user.Id.ToString()" },
+                    { "dm:apikey", @"Convert.ToBase64String(secretKeyBytes)" }
+                });
 
-            foreach(var role in Identity.Roles)
+            foreach (var role in Identity.Roles)
             {
                 oAuthIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
             }
@@ -37,7 +41,7 @@ namespace Identity
 
             if (context.TryGetBasicCredentials(out clientId, out clientSecret))
             {
-                using (InMemoryRepository repository = new InMemoryRepository())
+                using (var repository = context.OwinContext.Get<IUserRepository>("AspNet.Identity.Owin:" + (typeof(IUserRepository)).AssemblyQualifiedName.ToString()))
                 {
                     IdentityUser user = await repository.FindUser(clientId, clientSecret);
 

@@ -34,7 +34,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="MessageController.cs" />
+    <Compile Include="Token.cs" />
+    <Compile Include="IdentityStorage.cs" />
+    <Compile Include="IdentityUser.cs" />
+    <Compile Include="OAuthProviders\CustomAuthorizationServerProvider.cs" />
+    <Compile Include="IdentityProviders\InMemoryRepository.cs" />
+    <Compile Include="IdentityProviders\MongoRepository.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Logging\ApiLogEntry.cs" />
+    <Compile Include="Logging\ApiLogHandler.cs" />
+    <Compile Include="IdentityProviders\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Owin">
@@ -94,6 +103,14 @@
     <Reference Include="Swashbuckle.Core">
       <HintPath>..\packages\Swashbuckle.Core.5.5.3\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -103,5 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Web\" />
+    <Folder Include="OAuthProviders\" />
+    <Folder Include="IdentityProviders\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Logging\" />
   </ItemGroup>
 </Project>

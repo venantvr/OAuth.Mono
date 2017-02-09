@@ -11,7 +11,7 @@ namespace Identity
     {
         private MongoCollection _collection;
 
-        public MongoRepository ()
+        public MongoRepository()
         {
             var client = new MongoClient("mongodb://localhost:27017");
             var server = client.GetServer();
