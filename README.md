@@ -14,7 +14,4 @@ Service OAuth complet compatible Mono : authentification par tokens, stockage en
 
 ## Stack
 
-- C# / Mono
-- OAuth 2.0
-- MongoDB
-- Docker
+[![Stack](https://skillicons.dev/icons?i=mongodb,docker,dotnet,cs,go&theme=dark)](https://skillicons.dev)
