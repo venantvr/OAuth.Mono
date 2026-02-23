@@ -14,4 +14,4 @@ Service OAuth complet compatible Mono : authentification par tokens, stockage en
 
 ## Stack
 
-[![Stack](https://skillicons.dev/icons?i=mongodb,docker,dotnet,cs,go&theme=dark)](https://skillicons.dev)
+[![Stack](https://skillicons.dev/icons?i=cs,dotnet,mongodb,docker&theme=dark)](https://skillicons.dev)
