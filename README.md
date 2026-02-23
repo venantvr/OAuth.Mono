@@ -1,5 +1,20 @@
 # OAuth.Mono
 
-The goal of this repository is to implement a full *Mono* compatible service for OAuth authentication, with a custom *Identity* model. This service can run on *Docker*, that's nice.
+Service OAuth complet compatible Mono : authentification par tokens, stockage en memoire ou MongoDB, logging et conteneurisation Docker.
 
-For the moment, the identity repository consists in an in-memory store. Need some time to add it a real storage runtime...
+## Structure
+
+| Fichier / Dossier | Role |
+|-|-|
+| `Identity/Business/` | Logique metier d'authentification |
+| `Identity/Controllers/` | Controleurs de l'API OAuth |
+| `Identity/IdentityProviders/` | Fournisseurs d'identite (InMemory, MongoDB) |
+| `Identity/Logging/` | Couche de logging |
+| `Dockerfile` | Conteneurisation du service |
+
+## Stack
+
+- C# / Mono
+- OAuth 2.0
+- MongoDB
+- Docker
